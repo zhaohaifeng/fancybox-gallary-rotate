@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="auth" content="海夫子"/>
+    <title>fancyBox 实现图片旋转</title>
+
+    <link href="lib/fancybox/jquery.fancybox.css" rel="stylesheet">
+    <link href="lib/fancybox/helper/jquery.fancybox-buttons.css" rel="stylesheet">
+
+
+    <link href="lib/fancybox/helper/jquery.fancybox-buttons.css" rel="stylesheet">
+
+    <script type="text/javascript" src="lib/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="lib/fancybox/jquery.fancybox.js"></script>
+    <script type="text/javascript" src="lib/fancybox/helper/jquery.fancybox-buttons.js"></script>
+    <!--加入旋转组件-->
+    <script type="text/javascript" src="lib/jquery-rotate-2.3.js"></script>
+
+    <style>
+        /*设置按钮组宽度，用来容纳新按钮*/
+        #fancybox-buttons ul{
+            width:240px;
+        }
+
+        /*设置左转按钮*/
+        #fancybox-buttons a.btnLeft {
+            border-left: 1px solid #111;
+            width: 35px;
+            background-image: none;
+            text-indent:0px;
+            font-size: small;
+            /*background-position: 5px 0;*/
+        }
+
+
+        /*设置右转按钮*/
+        #fancybox-buttons a.btnRight {
+            /*background-position: -33px 0;*/
+            border-right: 1px solid #3e3e3e;
+            background-image: none;
+            text-indent:0px;
+            font-size: small;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var imageList = [{href: "img/1.jpg", title: "title1"}, {
+                href: "img/2.jpg",
+                title: "title2"
+            }, {href: "img/3.jpg", title: "title3"}, {
+                href: "img/4.jpg",
+                title: "title4"
+            }, {href: "img/5.jpg", title: "title5"}];
+            $.fancybox.open(imageList, {
+                helpers: {
+                    title: {
+                        type: 'inside'
+                    }, //<-- add a comma to separate the following option
+                    buttons: {
+                        //这是按钮的模板，参见jquery.fancybox-buttons.js文件,
+                        tpl: '<div id="fancybox-buttons"><ul><li><a class="btnPrev" title="Previous" href="javascript:;"></a></li><li><a class="btnPlay" title="Start slideshow" href="javascript:;"></a></li><li><a class="btnNext" title="Next" href="javascript:;"></a></li><li><a class="btnToggle" title="Toggle size" href="javascript:;"></a></li><li><a class="btnClose" title="Close" href="javascript:jQuery.fancybox.close();"></a></li>' +
+                            // 添加左转右转按钮
+                        '<li><a class="btnLeft" title="left" href="javascript:;">左转</a></li><li><a class="btnRight" title="right" href="javascript:;">右转</a></li></ul></div>',
+
+
+                        afterShow: function (opts, obj) {
+                        }
+                    } //<-- add this for buttons
+
+                },
+                afterShow: function (opts, obj) {
+                    $('body').on('click','.btnLeft', function() {
+
+                        rotateLeft();
+                    })//增加左转单击事件
+
+                    $('body').on('click','.btnRight', function() {
+                        rotateRight();
+                    })//增加右转单击事件
+                },
+                closeBtn: true, // you will use the buttons now
+                arrows: false
+            });
+
+
+        });
+
+
+        var rad = 0;
+        function rotateLeft() {
+            rad = rad - 90;
+            if (rad == -360) {
+                rad = 0;
+            }
+            $(".fancybox-image").rotate(rad);
+        }
+
+        function rotateRight() {
+            rad = rad + 90;
+            if (rad == 360) {
+                rad = 0;
+            }
+            $(".fancybox-image").rotate(rad);
+        }
+
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>
