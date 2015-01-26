@@ -72,21 +72,24 @@
 
                 },
                 afterShow: function (opts, obj) {
-                    $('body').on('click','.btnLeft', function() {
 
-                        rotateLeft();
-                    })//增加左转单击事件
-
-                    $('body').on('click','.btnRight', function() {
-                        rotateRight();
-                    })//增加右转单击事件
                 },
                 closeBtn: true, // you will use the buttons now
                 arrows: false
             });
 
+            $('body').on('click','.btnLeft', function() {
+
+                rotateLeft();
+            })//增加左转单击事件
+
+            $('body').on('click','.btnRight', function() {
+                rotateRight();
+            })//增加右转单击事件
 
         });
+
+
 
 
         var rad = 0;
